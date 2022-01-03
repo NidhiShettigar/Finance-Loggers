@@ -1,3 +1,4 @@
+import {Invoice} from './classes/Invoice.js';
 /* Practice
 const anchor = document.querySelector('a')!; //can be written without ! - i.e html identifier
 console.log(anchor);  
@@ -5,12 +6,39 @@ console.log(anchor);
 if(anchor){
     console.log(anchor.href); 
 }*/
+//interfaces
+interface IsPerson {
+    name: string;
+    ae: number;
+    speak(a: string): void;
+    spend(a: number): number;
+}
 
+const me: IsPerson = {
+    name: 'seela',
+    ae: 20,
+    speak(text: string): void {
+        console.log(text)
+    },
+    spend(amount: number): number {      //cannot delete spend or speak from theinterface
+        console.log('I spent', amount);
+        return amount;
+    },
+    //skill: []  cannot add anyting extra 
+};
+console.log(me);
+
+const greetPerson = (person: IsPerson) => {
+    console.log('My age is', person.ae);
+}
+//greetPerson({67}); must match the IsPerson interface
+greetPerson(me);
+/*
 //classes
 class Invoice{
-    client: string;
-    details: string;
-    amount: number;
+    readonly client: string;
+    private details: string;
+    public amount: number;
 
     constructor(c: string, d: string, a: number){
         this.client = c;
@@ -22,6 +50,19 @@ class Invoice{
         return `${this.client} owes Rs${this.amount} for ${this.details}`;
     }
 }
+// shorthand for classes only when we have modifiers along with variables
+class Invoice{ 
+    constructor(
+        readonly client: string,
+        private details: string,
+        public amount: number,
+    ){}
+
+    format() {
+        return `${this.client} owes Rs${this.amount} for ${this.details}`;
+    }
+}
+*/
 
 const incOne = new Invoice('mario', 'work on the mario website', 400);
 const incTwo = new Invoice('orio', 'work on the orio website', 500);
@@ -34,13 +75,19 @@ let invoices: Invoice[] = []; //allows only Invoice elements
 invoices.push(incOne);
 invoices.push(incTwo);
 
+/*
 //can be done
 incOne.client = 'rek';
 incTwo.amount = 7898;
 
 //incTwo.amount = '78';  cannot change type of element
-
-console.log(invoices);
+*/
+invoices.forEach(inv => {
+    //inv.client = 'omething else'; only read cannot change value because of readonly
+    //console.log(inv.client, inv.details, inv.amount, inv.format());  inv.details cannot be accesed because its private 
+    console.log(inv.client, inv.amount, inv.format());
+});
+//console.log(invoices);
 
 
 //const form = document.querySelector('form')!;  htmlformelement because form is html tag
