@@ -145,3 +145,72 @@ form.addEventListener('submit', (e: Event) => {
     );
     */
 });
+
+//generics
+const addUID = <T extends object>(obj: T) => {      // object can be replaced bt {name: string}  
+/*const addUID = (obj: object) => {    
+= normally we write this line but for generic we have 
+<anyletter>(obj: anyletter) included */
+    let uid = Math.floor(Math.random() * 100);
+    return {...obj, uid};
+}
+
+let docOne = addUID({name: 'reena', age:'27'});  //allowed for {name: string}
+//let docOne = addUID({ age:'27'}); not allowed for {name: string}
+//let docOne = addUID({name: 78, age:'27'}); not allowed for {name: string}
+/*let docTwo = addUID('hello');  allowed when only type T is specified. 
+gives error if extends object is written with type T*/
+//console.log(docOne);
+console.log(docOne.age); // only possible because of <T> else gives error
+
+/*
+// genericd with interfaces
+interface Resource<T> {
+    uid: number;
+    resourceName: string;
+    data: T;
+}
+
+const docThree: Resource<string> = {   // declared string so data is string
+    uid: 34,
+    resourceName: 'jeetu',
+    data: 'heyy'
+}
+
+const docFour: Resource<string[]> = {   // declared string array so data is array of string
+    uid: 84,
+    resourceName: 'neetu',
+    data: ['heyy','hello']
+}
+
+const docFive: Resource<object> = {   // declared object so data is in object 
+    uid: 74,
+    resourceName: 'meetu',
+    data: {greet: 'heyy'}
+}
+
+console.log(docThree, docFour, docFive);
+*/
+//Enums
+enum ResourceType { BOOK, AUTHOR, FILEM, DIRECTOR}
+
+interface Resource<T> {
+    uid: number;
+    resourcetype: ResourceType;
+    data: T;
+}
+
+const docSix: Resource<object> = {   // declared object so data is in object 
+    uid: 74,
+    resourcetype: ResourceType.AUTHOR,
+    data: {title: 'Author Name'}
+}
+
+const docSeven: Resource<object> = {   // declared object so data is in object 
+    uid: 74,
+    resourcetype: ResourceType.BOOK,
+    data: {name: 'Book Name'}
+}
+
+console.log(docSix, docSeven);
+
