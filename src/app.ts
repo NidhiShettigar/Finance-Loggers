@@ -1,6 +1,8 @@
-import {Invoice} from './classes/Invoice.js';
-import {Payment} from './classes/Payment.js';
-import {HasFormatter} from './interfaces/HasFormatter';
+import { Invoice } from './classes/Invoice.js';
+import { ListTemplate } from './classes/ListTemplate.js';
+import { Payment } from './classes/Payment.js';
+import { HasFormatter } from './interfaces/HasFormatter';
+
 /* Practice
 const anchor = document.querySelector('a')!; //can be written without ! - i.e html identifier
 console.log(anchor);  
@@ -118,6 +120,10 @@ const toform = document.querySelector('#tofrom') as HTMLInputElement;
 const details = document.querySelector('#details') as HTMLInputElement;
 const amount = document.querySelector('#amount') as HTMLInputElement;
 
+//list template instance
+const ul = document.querySelector('ul')!;
+const list = new ListTemplate(ul);
+
 form.addEventListener('submit', (e: Event) => {
     e.preventDefault();
 
@@ -127,12 +133,15 @@ form.addEventListener('submit', (e: Event) => {
     }else {
         doc = new Payment( toform.value, details.value, amount.valueAsNumber );
     }
+  
+    list.render(doc, type.value, 'end');
+    /*
     console.log(doc);
-   /* console.log(
+    console.log(
         type.value, 
         toform.value,
         details.value,
         amount.valueAsNumber  //to make number look blue else it will be a string
     );
     */
-})
+});
