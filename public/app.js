@@ -120,12 +120,16 @@ const ul = document.querySelector('ul');
 const list = new ListTemplate(ul);
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+    let values; //tuple implemented
+    values = [toform.value, details.value, amount.valueAsNumber];
     let doc;
     if (type.value === 'invoice') {
-        doc = new Invoice(toform.value, details.value, amount.valueAsNumber);
+        //doc = new Invoice( toform.value, details.value, amount.valueAsNumber );
+        doc = new Invoice(...values); //... = spread operator.
     }
     else {
-        doc = new Payment(toform.value, details.value, amount.valueAsNumber);
+        //doc = new Payment( toform.value, details.value, amount.valueAsNumber );
+        doc = new Payment(...values);
     }
     list.render(doc, type.value, 'end');
     /*
@@ -180,23 +184,39 @@ const docFive: Resource<object> = {   // declared object so data is in object
 }
 
 console.log(docThree, docFour, docFive);
-*/
+
 //Enums
-var ResourceType;
-(function (ResourceType) {
-    ResourceType[ResourceType["BOOK"] = 0] = "BOOK";
-    ResourceType[ResourceType["AUTHOR"] = 1] = "AUTHOR";
-    ResourceType[ResourceType["FILEM"] = 2] = "FILEM";
-    ResourceType[ResourceType["DIRECTOR"] = 3] = "DIRECTOR";
-})(ResourceType || (ResourceType = {}));
-const docSix = {
+enum ResourceType { BOOK, AUTHOR, FILEM, DIRECTOR}
+
+interface Resource<T> {
+    uid: number;
+    resourcetype: ResourceType;
+    data: T;
+}
+
+const docSix: Resource<object> = {   // declared object so data is in object
     uid: 74,
     resourcetype: ResourceType.AUTHOR,
-    data: { title: 'Author Name' }
-};
-const docSeven = {
+    data: {title: 'Author Name'}
+}
+
+const docSeven: Resource<object> = {   // declared object so data is in object
     uid: 74,
     resourcetype: ResourceType.BOOK,
-    data: { name: 'Book Name' }
-};
+    data: {name: 'Book Name'}
+}
+
 console.log(docSix, docSeven);
+*/
+//tuples
+let arr = ['tyu', 78, true];
+arr[0] = false;
+arr[1] = 'hrru';
+arr = [789, false, 'tghb'];
+let tup = ['henu', 34, true];
+tup[0] = 'jeenu';
+//tup[0] = 45; is not possible
+tup[1] = 46;
+let student;
+student = ['heena', 56];
+//student = [23, 'rtyu']; is not possible

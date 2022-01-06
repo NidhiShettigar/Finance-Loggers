@@ -126,12 +126,16 @@ const list = new ListTemplate(ul);
 
 form.addEventListener('submit', (e: Event) => {
     e.preventDefault();
+    let values: [string, string, number]; //tuple implemented
+    values = [toform.value, details.value, amount.valueAsNumber]
 
     let doc: HasFormatter;
     if( type.value === 'invoice' ){
-        doc = new Invoice( toform.value, details.value, amount.valueAsNumber );
+        //doc = new Invoice( toform.value, details.value, amount.valueAsNumber );
+        doc = new Invoice(...values);  //... = spread operator.
     }else {
-        doc = new Payment( toform.value, details.value, amount.valueAsNumber );
+        //doc = new Payment( toform.value, details.value, amount.valueAsNumber );
+        doc = new Payment(...values);
     }
   
     list.render(doc, type.value, 'end');
@@ -190,7 +194,7 @@ const docFive: Resource<object> = {   // declared object so data is in object
 }
 
 console.log(docThree, docFour, docFive);
-*/
+
 //Enums
 enum ResourceType { BOOK, AUTHOR, FILEM, DIRECTOR}
 
@@ -213,4 +217,20 @@ const docSeven: Resource<object> = {   // declared object so data is in object
 }
 
 console.log(docSix, docSeven);
+*/
+//tuples
+
+let arr = ['tyu', 78, true];
+arr[0] = false;
+arr[1] = 'hrru';
+arr = [789, false, 'tghb'];
+
+let tup: [string, number, boolean] = ['henu', 34, true];
+tup[0] = 'jeenu';
+//tup[0] = 45; is not possible
+tup[1] = 46;
+
+let student: [string, number];
+student = ['heena', 56];
+//student = [23, 'rtyu']; is not possible
 
