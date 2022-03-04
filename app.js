@@ -1,6 +1,6 @@
-import { Invoice } from './classes/Invoice.js';
-import { ListTemplate } from './classes/ListTemplate.js';
-import { Payment } from './classes/Payment.js';
+import { Invoice } from './public/classes/Invoice.js';
+import { ListTemplate } from './public/classes/ListTemplate.js';
+import { Payment } from './public/classes/Payment.js';
 /* Practice
 const anchor = document.querySelector('a')!; //can be written without ! - i.e html identifier
 console.log(anchor);
